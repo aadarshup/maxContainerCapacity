@@ -83,32 +83,6 @@ function packContainer() {
   });
 }
 
-// function visualize(boxes) {
-//   const container = document.getElementById('visual');
-//   container.innerHTML = '';
-
-//   const scene = new THREE.Scene();
-//   const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-//   const renderer = new THREE.WebGLRenderer();
-//   renderer.setSize(500, 500);
-//   container.appendChild(renderer.domElement);
-
-//   const colors = ['red', 'green', 'blue', 'yellow', 'orange', 'cyan'];
-
-//   boxes.forEach((b, i) => {
-//     const geometry = new THREE.BoxGeometry(b.w, b.h, b.d);
-//     const material = new THREE.MeshBasicMaterial({ color: colors[i % colors.length] });
-//     const cube = new THREE.Mesh(geometry, material);
-//     // cube.position.set(b.x + b.w / 2, b.h / 2, b.y + b.d / 2); // y = height
-//     cube.position.set(b.x + b.w / 2, b.z + b.h / 2, b.y + b.d / 2);
-//     scene.add(cube);
-//   });
-
-//   camera.position.set(100, 200, 200);
-//   camera.lookAt(50, 50, 50);
-//   renderer.render(scene, camera);
-// }
-
 function visualize(boxes) {
   const container = document.getElementById('visual');
   container.innerHTML = '';
@@ -176,157 +150,6 @@ function makeTextSprite(message) {
   return sprite;
 }
 
-// function render2DLayers(boxes, containerHeight) {
-//   const container = document.getElementById("visual-layers");
-//   container.innerHTML = '';
-
-//   const layers = {};
-
-//   boxes.forEach(box => {
-//     const layer = box.z;
-//     if (!layers[layer]) layers[layer] = [];
-//     layers[layer].push(box);
-//   });
-
-//   Object.keys(layers).sort((a, b) => parseInt(a) - parseInt(b)).forEach((layerZ, index) => {
-//     const boxesInLayer = layers[layerZ];
-
-//     const canvas = document.createElement("canvas");
-//     const ctx = canvas.getContext("2d");
-//     canvas.width = 520;
-//     canvas.height = 520;
-//     canvas.style.border = "1px solid black";
-//     canvas.style.marginBottom = "20px";
-
-//     const scale = 5;
-
-//     // Draw axes
-//     ctx.strokeStyle = "black";
-//     ctx.fillStyle = "black";
-//     ctx.font = "14px Arial";
-//     ctx.beginPath();
-//     ctx.moveTo(10, 500);       // Width (X-axis)
-//     ctx.lineTo(150, 500);
-//     ctx.stroke();
-//     ctx.fillText("Width →", 60, 495);
-
-//     ctx.beginPath();           // Depth (Y-axis)
-//     ctx.moveTo(10, 500);
-//     ctx.lineTo(10, 350);
-//     ctx.stroke();
-//     ctx.fillText("↓ Depth", 15, 430);
-
-//     // Draw boxes
-//     boxesInLayer.forEach(b => {
-//       const x = b.x * scale + 10;
-//       const y = b.y * scale + 10;
-//       const w = b.w * scale;
-//       const d = b.d * scale;
-
-//       ctx.fillStyle = "#"+Math.floor(Math.random()*16777215).toString(16);
-//       ctx.fillRect(x, y, w, d);
-//       ctx.strokeStyle = "black";
-//       ctx.strokeRect(x, y, w, d);
-
-//       ctx.fillStyle = "black";
-//       ctx.font = "12px Arial";
-//       ctx.fillText(b.id, x + 2, y + 12);
-//     });
-
-//     const label = document.createElement('div');
-//     label.innerText = `Layer at Height: ${layerZ}`;
-
-//     const saveBtn = document.createElement('button');
-//     saveBtn.innerText = "Save Layer Image";
-//     saveBtn.onclick = () => {
-//       const link = document.createElement('a');
-//       link.download = `Layer_${layerZ}.png`;
-//       link.href = canvas.toDataURL();
-//       link.click();
-//     };
-
-//     container.appendChild(label);
-//     container.appendChild(canvas);
-//     container.appendChild(saveBtn);
-//   });
-// }
-
-
-// function render2DLayers(boxes, containerHeight, containerWidth, containerDepth) {
-//   const container = document.getElementById("visual-layers");
-//   container.innerHTML = '';
-
-//   const layers = {};
-
-//   boxes.forEach(box => {
-//     const layer = box.z;
-//     if (!layers[layer]) layers[layer] = [];
-//     layers[layer].push(box);
-//   });
-
-//   Object.keys(layers).sort((a, b) => parseInt(a) - parseInt(b)).forEach((layerZ, index) => {
-//     const boxesInLayer = layers[layerZ];
-
-//     const canvas = document.createElement("canvas");
-//     const ctx = canvas.getContext("2d");
-//     const scale = 5;
-
-//     const canvasW = containerWidth * scale + 40;
-//     const canvasH = containerDepth * scale + 40;
-
-//     canvas.width = canvasW;
-//     canvas.height = canvasH;
-//     canvas.style.border = "1px solid black";
-//     canvas.style.marginBottom = "20px";
-
-//     // Draw container border
-//     ctx.strokeStyle = "gray";
-//     ctx.lineWidth = 2;
-//     ctx.strokeRect(20, 20, containerWidth * scale, containerDepth * scale);
-
-//     // Draw axis labels
-//     ctx.fillStyle = "black";
-//     ctx.font = "14px Arial";
-//     ctx.fillText("→ Width (X)", 30 + containerWidth * scale / 2, 15);
-//     ctx.fillText("↓ Depth (Z)", 2, 30 + containerDepth * scale / 2);
-
-//     // Draw boxes
-//     boxesInLayer.forEach(b => {
-//       const x = b.x * scale + 20;
-//       const y = b.y * scale + 20;
-//       const w = b.w * scale;
-//       const d = b.d * scale;
-
-//       ctx.fillStyle = "#" + Math.floor(Math.random() * 16777215).toString(16);
-//       ctx.fillRect(x, y, w, d);
-//       ctx.strokeStyle = "black";
-//       ctx.strokeRect(x, y, w, d);
-
-//       ctx.fillStyle = "black";
-//       ctx.font = "12px Arial";
-//       ctx.fillText(b.id, x + 2, y + 12);
-//     });
-
-//     // Title + Save Button
-//     const label = document.createElement('div');
-//     label.innerText = `Layer at Height: ${layerZ}`;
-
-//     const saveBtn = document.createElement('button');
-//     saveBtn.innerText = "Save Layer Image";
-//     saveBtn.onclick = () => {
-//       const link = document.createElement('a');
-//       link.download = `Layer_${layerZ}.png`;
-//       link.href = canvas.toDataURL();
-//       link.click();
-//     };
-
-//     container.appendChild(label);
-//     container.appendChild(canvas);
-//     container.appendChild(saveBtn);
-//   });
-// }
-
-
 function render2DLayers(boxes, containerHeight) {
   const container = document.getElementById("visual-layers");
   container.innerHTML = '';
@@ -339,7 +162,7 @@ function render2DLayers(boxes, containerHeight) {
     layers[layer].push(box);
   });
 
-  // Calculate max width and depth occupied
+  // STEP 1: Find overall max occupied width and depth
   let maxW = 0, maxD = 0;
   boxes.forEach(b => {
     maxW = Math.max(maxW, b.x + b.w);
@@ -347,8 +170,9 @@ function render2DLayers(boxes, containerHeight) {
   });
 
   const scale = 5;
-  const canvasW = maxW * scale + 60;
-  const canvasH = maxD * scale + 60;
+  const padding = 40;
+  const canvasW = maxW * scale + padding * 2;
+  const canvasH = maxD * scale + padding * 2;
 
   Object.keys(layers).sort((a, b) => parseInt(a) - parseInt(b)).forEach((layerZ, index) => {
     const boxesInLayer = layers[layerZ];
@@ -360,32 +184,35 @@ function render2DLayers(boxes, containerHeight) {
     canvas.style.border = "1px solid black";
     canvas.style.marginBottom = "20px";
 
-    const offsetX = 40;
-    const offsetY = 40;
-
-    // Draw container border with measurements
+    // STEP 2: Draw boundary box for max width x depth
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
-    ctx.strokeRect(offsetX, offsetY, maxW * scale, maxD * scale);
+    ctx.strokeRect(padding, padding, maxW * scale, maxD * scale);
 
-    // Axis text
-    ctx.font = "14px Arial";
+    // STEP 3: Draw axis labels
     ctx.fillStyle = "black";
-    ctx.fillText(`Width → ${maxW} units`, offsetX + maxW * scale / 2 - 40, offsetY + maxD * scale + 30);
+    ctx.font = "14px Arial";
+    ctx.fillText(`Width → ${maxW} units`, padding + maxW * scale / 2 - 40, padding + maxD * scale + 30);
     ctx.save();
-    ctx.translate(10, offsetY + maxD * scale / 2);
+    ctx.translate(10, padding + maxD * scale / 2);
     ctx.rotate(-Math.PI / 2);
-    ctx.fillText(`Depth ↓ ${maxD} units`, 0, 0);
+    ctx.fillText(`↓ Depth (${maxD} units)`, 0, 0);
     ctx.restore();
 
-    // Draw each box
+    // STEP 4: Draw boxes
     boxesInLayer.forEach(b => {
-      const x = b.x * scale + offsetX;
-      const y = b.y * scale + offsetY;
+      const x = b.x * scale + padding;
+      const y = b.y * scale + padding;
       const w = b.w * scale;
       const d = b.d * scale;
 
-      ctx.fillStyle = "#"+Math.floor(Math.random()*16777215).toString(16);
+      // Generate a random color
+      let color = "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+
+      // If color is black, skip drawing
+      if (color.toLowerCase() === "#000000") return;
+
+      ctx.fillStyle = color;
       ctx.fillRect(x, y, w, d);
       ctx.strokeStyle = "black";
       ctx.strokeRect(x, y, w, d);
@@ -395,6 +222,7 @@ function render2DLayers(boxes, containerHeight) {
       ctx.fillText(b.id, x + 2, y + 12);
     });
 
+    // STEP 5: Add UI
     const label = document.createElement('div');
     label.innerText = `Layer at Height: ${layerZ}`;
 
