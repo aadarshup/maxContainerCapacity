@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Box Container Packing</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>Box Container Optimizer</h1>
+
+  <div id="tabs">
+    <button onclick="showTab('manage')">Manage Boxes</button>
+    <button onclick="showTab('pack')">Pack Container</button>
+  </div>
+
+  <div id="manage" class="tab">
+    <h2>Add/Edit/Delete Boxes</h2>
+    <form onsubmit="addBox(); return false;">
+      <input placeholder="ID" id="box-id">
+      <input placeholder="Width" id="box-width" type="number">
+      <input placeholder="Depth" id="box-depth" type="number">
+      <input placeholder="Height" id="box-height" type="number">
+      <button type="submit">Add</button>
+    </form>
+    <div id="box-list"></div>
+  </div>
+
+  <div id="pack" class="tab" style="display:none;">
+    <h2>Pack Container</h2>
+    <label>Container (W x D x H)</label><br>
+    <input id="cw" type="number" placeholder="Width"> 
+    <input id="cd" type="number" placeholder="Depth"> 
+    <input id="ch" type="number" placeholder="Height"><br>
+    <div id="box-plan-list"></div>
+    <button onclick="addBoxToPlan()">+ Add Box Type</button><br><br>
+    <button onclick="packContainer()">Pack Now</button>
+    <div id="result"></div>
+    <div id="visual"></div>
+    <h2>Layer-wise 2D Views</h2>
+    <div id="visual-layers"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
